@@ -36,7 +36,6 @@ exports.loginAdmin = asyncHandler(async (req, res) => {
             email: found.email,
         }
     })
-
 })
 exports.registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body
