@@ -1,27 +1,31 @@
+const asyncHandler = require("express-async-handler")
+const Order = require("../model/Order")
+
+exports.userGetAllOrders = asyncHandler(async (req, res) => {
+    const result = await Order
+        .find({ user: req.params.id })
+        .sort({ createdAt: -1 })
+        .populate("products.product").exec()
+    res.json({ message: "Users Fetch Sucess", result })
+})
+exports.userGetOrderDetails = asyncHandler(async (req, res) => {
+    const result = await Order.findbyId(req.params.id)
+    res.json({ message: "User GetOrderDetails Sucess", result })
+})
+exports.userUpdatePassword = asyncHandler(async (req, res) => {
+    res.json({ message: "User UpdatePassword Sucess" })
+})
+exports.userPlacedOrder = asyncHandler(async (req, res) => {
+    await Order.create(req.body)
+    res.json({ message: "User PlacedOrder Sucess" })
+})
+exports.userCancelOrder = asyncHandler(async (req, res) => {
+    await Order.findByIdAndUpdate(req.params.id, { status: "cancel" })
+    res.json({ message: "User CancelOrder Sucess" })
+})
+
 // userGetAllOrders
 // userGetOrderDetails
 // userUpdatePassword
-// userPlaceOrder
-// userCancelOrder
-const asyncHanlder = require("express-async-handler")
-const Order = require("../models/Order")
-
-exports.userGetAllOrders = asyncHanlder(async (req, res) => {
-    const result = await Order.find({ user: req.params.id }).sort({ createdAt: -1 }).populate("products.product").exec()
-    res.json({ message: "Order Fetch Success", result })
-})
-exports.userGetOrderDetails = asyncHanlder(async (req, res) => {
-    const result = await Order.findById(req.params.id)
-    res.json({ message: "Order Fetch Success", result })
-})
-exports.userUpdatePassword = asyncHanlder(async (req, res) => {
-    res.json({ message: "Password Update Success" })
-})
-exports.userPlaceOrder = asyncHanlder(async (req, res) => {
-    await Order.create(req.body)
-    res.json({ message: "Order Place Success" })
-})
-exports.userCancelOrder = asyncHanlder(async (req, res) => {
-    await Order.findByIdAndUpdate(req.params.id, { status: "cancel" })
-    res.json({ message: "Order cancel Success" })
-})
+// userPlacedOrder
+// userCancelOrder
