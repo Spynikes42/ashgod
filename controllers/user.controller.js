@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler")
-const Order = require("../model/Order")
+const Order = require("../models/Order")
 
 exports.userGetAllOrders = asyncHandler(async (req, res) => {
     const result = await Order
