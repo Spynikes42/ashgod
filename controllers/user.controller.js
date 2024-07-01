@@ -7,7 +7,7 @@ const asyncHanlder = require("express-async-handler")
 const Order = require("../models/Order")
 
 exports.userGetAllOrders = asyncHanlder(async (req, res) => {
-    const result = await Order.find({ user: req.params.id })
+    const result = await Order.find({ user: req.params.id }).sort({ createdAt: -1 }).populate("products.product")
     res.json({ message: "Order Fetch Success", result })
 })
 exports.userGetOrderDetails = asyncHanlder(async (req, res) => {
@@ -25,3 +25,10 @@ exports.userCancelOrder = asyncHanlder(async (req, res) => {
     await Order.findByIdAndUpdate(req.params.id, { status: "cancel" })
     res.json({ message: "Order cancel Success" })
 })
+
+
+// userGetAllOrders
+// userGetOrderDetails
+// userUpdatePassword
+// userPlacedOrder
+// userCancelOrder
