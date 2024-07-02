@@ -1,6 +1,7 @@
 const asyncHanlder = require("express-async-handler")
 const Product = require("../models/Product")
 const { upload } = require("../utils/upload")
+const Order = require("../models/Order")
 const cloudinary = require("cloudinary").v2
 
 cloudinary.config({
@@ -68,7 +69,8 @@ exports.updateOrderStatus = asyncHanlder(async (req, res) => {
 
 // user
 exports.getAllUsers = asyncHanlder(async (req, res) => {
-    res.json({ message: "Users fetch Success" })
+    const result = await Order.find().sort({ createdAt: -1 })
+    res.json({ message: "Users fetch Success", result })
 })
 exports.getUserDetail = asyncHanlder(async (req, res) => {
     res.json({ message: "Users Detail fetch Success" })
