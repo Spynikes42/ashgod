@@ -69,7 +69,11 @@ exports.updateOrderStatus = asyncHanlder(async (req, res) => {
 
 // user
 exports.getAllUsers = asyncHanlder(async (req, res) => {
-    const result = await Order.find().sort({ createdAt: -1 })
+    const result = await Order
+        .find()
+        .populate("user")
+        .populate("products.product")
+        .sort({ createdAt: -1 })
     res.json({ message: "Users fetch Success", result })
 })
 exports.getUserDetail = asyncHanlder(async (req, res) => {
