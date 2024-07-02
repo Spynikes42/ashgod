@@ -77,6 +77,7 @@ exports.getAllUsers = asyncHanlder(async (req, res) => {
             name: 1,
             desc: 1,
             price: 1,
+            mrp: 1,
             images: 1
         })
         .sort({ createdAt: -1 })
