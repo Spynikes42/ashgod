@@ -71,7 +71,7 @@ exports.updateOrderStatus = asyncHanlder(async (req, res) => {
 exports.getAllUsers = asyncHanlder(async (req, res) => {
     const result = await Order
         .find()
-        .populate("user")
+        .populate("user", { password: 0, active: 0, updatedAt: 0, __v: 0 })
         .populate("products.product")
         .sort({ createdAt: -1 })
     res.json({ message: "Users fetch Success", result })
